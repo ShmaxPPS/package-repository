@@ -3,7 +3,7 @@ package ru.cg.webbpm.repository.util;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import ru.cg.webbpm.repository.model.Package;
+import ru.cg.webbpm.repository.api.PackageResponse;
 
 /**
  * @author m.popov
@@ -13,8 +13,8 @@ public final class PackageGenerator {
   private PackageGenerator() {
   }
 
-  public static Package randomPackage() {
-    return new Package(
+  public static PackageResponse randomPackage() {
+    return new PackageResponse(
         PropertyGenerator.randomGroupId(),
         PropertyGenerator.randomArtifactId(),
         PropertyGenerator.randomVersion(),
@@ -22,27 +22,27 @@ public final class PackageGenerator {
     );
   }
 
-  public static List<Package> randomPackages(int size) {
+  public static List<PackageResponse> randomPackages(int size) {
     Set<String> ids = new HashSet<>();
-    List<Package> packages = new ArrayList<>();
-    while (packages.size() != size) {
-      Package randomPackage = randomPackage();
-      String packageId = randomPackage.getPackageId();
+    List<PackageResponse> packageResponses = new ArrayList<>();
+    while (packageResponses.size() != size) {
+      PackageResponse randomPackageResponse = randomPackage();
+      String packageId = randomPackageResponse.getPackageId();
       if (ids.contains(packageId)) {
         continue;
       }
       ids.add(packageId);
-      packages.add(randomPackage);
+      packageResponses.add(randomPackageResponse);
     }
-    return packages;
+    return packageResponses;
   }
 
-  public static List<Package> randomPackageWithVersion(List<String> versions) {
+  public static List<PackageResponse> randomPackageWithVersion(List<String> versions) {
     String groupId = PropertyGenerator.randomGroupId();
     String artifactId = PropertyGenerator.randomArtifactId();
     String path = PropertyGenerator.randomPath();
     return versions.stream()
-        .map(version -> new Package(groupId, artifactId, version, path))
+        .map(version -> new PackageResponse(groupId, artifactId, version, path))
         .collect(Collectors.toList());
   }
 }

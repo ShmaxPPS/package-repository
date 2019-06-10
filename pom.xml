@@ -38,13 +38,42 @@
       <artifactId>jackson-databind</artifactId>
       <version>2.9.9</version>
     </dependency>
+
+    <!--database-->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>jooq</artifactId>
+      <version>3.11.11</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>5.1.7.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.1.7.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>2.6.0</version>
+    </dependency>
+
+    <!--logging-->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>1.7.26</version>
     </dependency>
 
-    <!--test-->
+    <!--testing-->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -61,6 +90,90 @@
 
   <build>
     <finalName>package-repository</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <files>
+                <file>src/main/resources/database.properties</file>
+              </files>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>sql-maven-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <configuration>
+              <driver>${db.driver}</driver>
+              <url>${db.url}</url>
+              <username>${db.username}</username>
+              <password>${db.password}</password>
+              <srcFiles>
+                <srcFile>src/main/resources/intro_schema.sql</srcFile>
+              </srcFiles>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.jooq</groupId>
+        <artifactId>jooq-codegen-maven</artifactId>
+        <version>3.11.11</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <configuration>
+              <jdbc>
+                <driver>${db.driver}</driver>
+                <url>${db.url}</url>
+                <user>${db.username}</user>
+                <password>${db.password}</password>
+              </jdbc>
+              <generator>
+                <database>
+                  <inputSchema>public</inputSchema>
+                </database>
+                <generate>
+                  <instanceFields>true</instanceFields>
+                  <springAnnotations>true</springAnnotations>
+                </generate>
+                <target>
+                  <packageName>${db.beans}</packageName>
+                  <directory>src/main/java</directory>
+                </target>
+              </generator>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
     <pluginManagement>
       <plugins>
         <plugin>

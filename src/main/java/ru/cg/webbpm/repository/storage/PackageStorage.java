@@ -4,7 +4,7 @@ import java.util.*;
 
 import org.springframework.stereotype.Component;
 
-import ru.cg.webbpm.repository.model.Package;
+import ru.cg.webbpm.repository.api.PackageResponse;
 import ru.cg.webbpm.repository.model.Version;
 
 /**
@@ -13,45 +13,38 @@ import ru.cg.webbpm.repository.model.Version;
 @Component
 public class PackageStorage {
 
-  private Map<String, NavigableMap<Version, Package>> storage = new HashMap<>();
+  private Map<String, NavigableMap<Version, PackageResponse>> storage = new HashMap<>();
 
-  public void add(Package pPackage) {
-    String packageId = pPackage.getPackageId();
-    Version mavenVersion = Version.parseMaven(pPackage.getVersion());
-    NavigableMap<Version, Package> map = storage.getOrDefault(packageId, new TreeMap<>());
-    map.put(mavenVersion, pPackage);
+  public void add(PackageResponse pPackageResponse) {
+    String packageId = pPackageResponse.getPackageId();
+    Version mavenVersion = Version.parseMaven(pPackageResponse.getVersion());
+    NavigableMap<Version, PackageResponse> map = storage.getOrDefault(packageId, new TreeMap<>());
+    map.put(mavenVersion, pPackageResponse);
     storage.put(packageId, map);
   }
 
-  public void addAll(Collection<? extends Package> packages) {
+  public void addAll(Collection<? extends PackageResponse> packages) {
     packages.forEach(this::add);
   }
 
-  public List<Package> range(String groupId, String artifactId) {
-    return range(groupId, artifactId, null);
+  public List<PackageResponse> range(String groupId, String artifactId) {
+    return range(groupId, artifactId, null, null);
   }
 
-  public List<Package> range(String groupId, String artifactId, String minVersion) {
-    return range(groupId, artifactId, minVersion, null);
-  }
-
-  public List<Package> range(String groupId, String artifactId, String minVersion, String maxVersion) {
+  public List<PackageResponse> range(String groupId, String artifactId, Version minVersion, Version maxVersion) {
     String packageId = groupId + "." + artifactId;
-    Version minObjVersion = minVersion != null ? Version.parseMaven(minVersion) : null;
-    Version maxObjVersion = maxVersion != null ? Version.parseMaven(maxVersion) : null;
-    NavigableMap<Version, Package> map = storage.getOrDefault(packageId, new TreeMap<>());
-    if (minObjVersion == null && maxObjVersion == null) {
+    NavigableMap<Version, PackageResponse> map = storage.getOrDefault(packageId, new TreeMap<>());
+    if (minVersion == null && maxVersion == null) {
       return new ArrayList<>(map.values());
     }
-    else if (minObjVersion == null) {
-      return new ArrayList<>(map.headMap(maxObjVersion, true).values());
+    else if (minVersion == null) {
+      return new ArrayList<>(map.headMap(maxVersion, true).values());
     }
-    else if (maxObjVersion == null) {
-      return new ArrayList<>(map.tailMap(minObjVersion, true).values());
+    else if (maxVersion == null) {
+      return new ArrayList<>(map.tailMap(minVersion, true).values());
     }
     else {
-      return new ArrayList<>(map.subMap(minObjVersion, true,
-          maxObjVersion, true).values());
+      return new ArrayList<>(map.subMap(minVersion, true, maxVersion, true).values());
     }
   }
 }

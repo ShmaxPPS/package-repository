@@ -1,21 +1,21 @@
-package ru.cg.webbpm.repository.model;
+package ru.cg.webbpm.repository.api;
 
 import java.util.Objects;
 
 /**
  * @author m.popov
  */
-public class Package {
+public class PackageResponse {
   private String groupId;
   private String artifactId;
   private String version;
   private String path;
 
   @SuppressWarnings("unused")
-  public Package() {
+  public PackageResponse() {
   }
 
-  public Package(String groupId, String artifactId, String version, String path) {
+  public PackageResponse(String groupId, String artifactId, String version, String path) {
     this.groupId = groupId;
     this.artifactId = artifactId;
     this.version = version;
@@ -61,11 +61,11 @@ public class Package {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof Package)) return false;
-    Package aPackage = (Package) o;
-    return Objects.equals(groupId, aPackage.groupId) &&
-           Objects.equals(artifactId, aPackage.artifactId) &&
-           Objects.equals(version, aPackage.version);
+    if (!(o instanceof PackageResponse)) return false;
+    PackageResponse aPackageResponse = (PackageResponse) o;
+    return Objects.equals(groupId, aPackageResponse.groupId) &&
+           Objects.equals(artifactId, aPackageResponse.artifactId) &&
+           Objects.equals(version, aPackageResponse.version);
   }
 
   @Override

@@ -2,11 +2,11 @@ package ru.cg.webbpm.repository.service;
 
 import java.util.List;
 
-import ru.cg.webbpm.repository.model.Package;
+import ru.cg.webbpm.repository.api.PackageResponse;
 
 public interface RepositoryService {
 
-    List<Package> packages();
+    List<PackageResponse> packages();
 
     byte[] download(String path);
 }

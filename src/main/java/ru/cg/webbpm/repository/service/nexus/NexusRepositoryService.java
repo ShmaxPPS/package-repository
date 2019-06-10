@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import ru.cg.webbpm.repository.model.Package;
+import ru.cg.webbpm.repository.api.PackageResponse;
 import ru.cg.webbpm.repository.model.nexus.NexusAsset;
 import ru.cg.webbpm.repository.model.nexus.NexusPackage;
 import ru.cg.webbpm.repository.model.nexus.NexusPackages;
@@ -28,9 +29,11 @@ public class NexusRepositoryService implements RepositoryService {
 
     private static final Pattern pattern = Pattern.compile(".+\\.jar", Pattern.DOTALL);
 
+    @Autowired
+    RestTemplate restTemplate;
+
     @Override
-    public List<Package> packages() {
-        RestTemplate restTemplate = new RestTemplate();
+    public List<PackageResponse> packages() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         UriComponentsBuilder builder = UriComponentsBuilder
@@ -56,7 +59,7 @@ public class NexusRepositoryService implements RepositoryService {
                             nexusPackage.getGroup(), nexusPackage.getName(), nexusPackage.getVersion());
                         return new RuntimeException(errorMessage);
                     });
-                return new Package(
+                return new PackageResponse(
                     nexusPackage.getGroup(),
                     nexusPackage.getName(),
                     nexusPackage.getVersion(),
@@ -68,7 +71,6 @@ public class NexusRepositoryService implements RepositoryService {
 
     @Override
     public byte[] download(String path) {
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_OCTET_STREAM));
         UriComponentsBuilder builder = UriComponentsBuilder

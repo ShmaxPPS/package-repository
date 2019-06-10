@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ru.cg.webbpm.repository.model.Package;
+import ru.cg.webbpm.repository.api.PackageResponse;
+import ru.cg.webbpm.repository.model.Version;
 import ru.cg.webbpm.repository.util.PackageGenerator;
 import ru.cg.webbpm.repository.util.PropertyGenerator;
 
@@ -36,129 +37,131 @@ class PackageStorageTest {
 
   @Test
   void testAddingOneAndRangingOne() {
-    Package randomPackage = PackageGenerator.randomPackage();
-    storage.add(randomPackage);
-    List<Package> packages = storage.range(
-        randomPackage.getGroupId(),
-        randomPackage.getArtifactId()
+    PackageResponse randomPackageResponse = PackageGenerator.randomPackage();
+    storage.add(randomPackageResponse);
+    List<PackageResponse> packageResponses = storage.range(
+        randomPackageResponse.getGroupId(),
+        randomPackageResponse.getArtifactId()
     );
-    assertNotNull(packages);
-    assertEquals(1, packages.size());
-    assertEquals(randomPackage, packages.get(0));
+    assertNotNull(packageResponses);
+    assertEquals(1, packageResponses.size());
+    assertEquals(randomPackageResponse, packageResponses.get(0));
   }
 
   @Test
   void testAddingManyAndRangingMany() {
-    List<Package> randomPackages = PackageGenerator.randomPackages(5);
-    for (Package randomPackage : randomPackages) {
-      storage.add(randomPackage);
+    List<PackageResponse> randomPackageResponses = PackageGenerator.randomPackages(5);
+    for (PackageResponse randomPackageResponse : randomPackageResponses) {
+      storage.add(randomPackageResponse);
     }
-    for (Package randomPackage : randomPackages) {
-      List<Package> packages = storage.range(
-          randomPackage.getGroupId(),
-          randomPackage.getArtifactId()
+    for (PackageResponse randomPackageResponse : randomPackageResponses) {
+      List<PackageResponse> packageResponses = storage.range(
+          randomPackageResponse.getGroupId(),
+          randomPackageResponse.getArtifactId()
       );
-      assertNotNull(packages);
-      assertEquals(1, packages.size());
-      assertEquals(randomPackage, packages.get(0));
+      assertNotNull(packageResponses);
+      assertEquals(1, packageResponses.size());
+      assertEquals(randomPackageResponse, packageResponses.get(0));
     }
   }
 
   @Test
   void testAddingAllAndRangingMany() {
-    List<Package> randomPackages = PackageGenerator.randomPackages(5);
-    storage.addAll(randomPackages);
-    for (Package randomPackage : randomPackages) {
-      List<Package> packages = storage.range(
-          randomPackage.getGroupId(),
-          randomPackage.getArtifactId()
+    List<PackageResponse> randomPackageResponses = PackageGenerator.randomPackages(5);
+    storage.addAll(randomPackageResponses);
+    for (PackageResponse randomPackageResponse : randomPackageResponses) {
+      List<PackageResponse> packageResponses = storage.range(
+          randomPackageResponse.getGroupId(),
+          randomPackageResponse.getArtifactId()
       );
-      assertNotNull(packages);
-      assertEquals(1, packages.size());
-      assertEquals(randomPackage, packages.get(0));
+      assertNotNull(packageResponses);
+      assertEquals(1, packageResponses.size());
+      assertEquals(randomPackageResponse, packageResponses.get(0));
     }
   }
 
   @Test
   void testOrdering() {
-    List<Package> randomPackages = PackageGenerator.randomPackageWithVersion(SHUFFLED_VERSIONS);
-    String groupId = randomPackages.get(0).getGroupId();
-    String artifactId = randomPackages.get(0).getArtifactId();
-    storage.addAll(randomPackages);
-    List<Package> packages = storage.range(groupId, artifactId);
-    List<String> observedVersions = packages.stream()
-        .map(Package::getVersion)
+    List<PackageResponse> randomPackageResponses = PackageGenerator.randomPackageWithVersion(SHUFFLED_VERSIONS);
+    String groupId = randomPackageResponses.get(0).getGroupId();
+    String artifactId = randomPackageResponses.get(0).getArtifactId();
+    storage.addAll(randomPackageResponses);
+    List<PackageResponse> packageResponses = storage.range(groupId, artifactId);
+    List<String> observedVersions = packageResponses.stream()
+        .map(PackageResponse::getVersion)
         .collect(Collectors.toList());
     List<String> expectedVersions = SORTED_VERSIONS;
-    assertNotNull(packages);
-    assertEquals(expectedVersions.size(), packages.size());
+    assertNotNull(packageResponses);
+    assertEquals(expectedVersions.size(), packageResponses.size());
     assertIterableEquals(expectedVersions, observedVersions);
   }
 
   @Test
   void testTailRanging() {
-    List<Package> randomPackages = PackageGenerator.randomPackageWithVersion(SHUFFLED_VERSIONS);
-    String groupId = randomPackages.get(0).getGroupId();
-    String artifactId = randomPackages.get(0).getArtifactId();
-    storage.addAll(randomPackages);
-    List<Package> packages = storage.range(groupId, artifactId, SORTED_VERSIONS.get(TAIL_INDEX));
-    List<String> observedVersions = packages.stream()
-        .map(Package::getVersion)
+    List<PackageResponse> randomPackageResponses = PackageGenerator.randomPackageWithVersion(SHUFFLED_VERSIONS);
+    String groupId = randomPackageResponses.get(0).getGroupId();
+    String artifactId = randomPackageResponses.get(0).getArtifactId();
+    storage.addAll(randomPackageResponses);
+    Version minVersion = Version.parseMaven(SORTED_VERSIONS.get(TAIL_INDEX));
+    List<PackageResponse> packageResponses = storage.range(groupId, artifactId, minVersion, null);
+    List<String> observedVersions = packageResponses.stream()
+        .map(PackageResponse::getVersion)
         .collect(Collectors.toList());
     List<String> expectedVersions = SORTED_VERSIONS.subList(TAIL_INDEX, SORTED_VERSIONS.size());
-    assertNotNull(packages);
-    assertEquals(expectedVersions.size(), packages.size());
+    assertNotNull(packageResponses);
+    assertEquals(expectedVersions.size(), packageResponses.size());
     assertIterableEquals(expectedVersions, observedVersions);
   }
 
   @Test
   void testHeadRanging() {
-    List<Package> randomPackages = PackageGenerator.randomPackageWithVersion(SHUFFLED_VERSIONS);
-    String groupId = randomPackages.get(0).getGroupId();
-    String artifactId = randomPackages.get(0).getArtifactId();
-    storage.addAll(randomPackages);
-    List<Package> packages = storage.range(groupId, artifactId,
-        null, SORTED_VERSIONS.get(HEAD_INDEX));
-    List<String> observedVersions = packages.stream()
-        .map(Package::getVersion)
+    List<PackageResponse> randomPackageResponses = PackageGenerator.randomPackageWithVersion(SHUFFLED_VERSIONS);
+    String groupId = randomPackageResponses.get(0).getGroupId();
+    String artifactId = randomPackageResponses.get(0).getArtifactId();
+    storage.addAll(randomPackageResponses);
+    Version maxVersion = Version.parseMaven(SORTED_VERSIONS.get(HEAD_INDEX));
+    List<PackageResponse> packageResponses = storage.range(groupId, artifactId, null, maxVersion);
+    List<String> observedVersions = packageResponses.stream()
+        .map(PackageResponse::getVersion)
         .collect(Collectors.toList());
     List<String> expectedVersions = SORTED_VERSIONS.subList(0, HEAD_INDEX + 1);
-    assertNotNull(packages);
-    assertEquals(expectedVersions.size(), packages.size());
+    assertNotNull(packageResponses);
+    assertEquals(expectedVersions.size(), packageResponses.size());
     assertIterableEquals(expectedVersions, observedVersions);
   }
 
   @Test
   void testHeadAndTailRanging() {
-    List<Package> randomPackages = PackageGenerator.randomPackageWithVersion(SHUFFLED_VERSIONS);
-    String groupId = randomPackages.get(0).getGroupId();
-    String artifactId = randomPackages.get(0).getArtifactId();
-    storage.addAll(randomPackages);
-    List<Package> packages = storage.range(groupId, artifactId,
-        SORTED_VERSIONS.get(TAIL_INDEX), SORTED_VERSIONS.get(HEAD_INDEX));
-    List<String> observedVersions = packages.stream()
-        .map(Package::getVersion)
+    List<PackageResponse> randomPackageResponses = PackageGenerator.randomPackageWithVersion(SHUFFLED_VERSIONS);
+    String groupId = randomPackageResponses.get(0).getGroupId();
+    String artifactId = randomPackageResponses.get(0).getArtifactId();
+    storage.addAll(randomPackageResponses);
+    Version minVersion = Version.parseMaven(SORTED_VERSIONS.get(TAIL_INDEX));
+    Version maxVersion = Version.parseMaven(SORTED_VERSIONS.get(HEAD_INDEX));
+    List<PackageResponse> packageResponses = storage.range(groupId, artifactId, minVersion, maxVersion);
+    List<String> observedVersions = packageResponses.stream()
+        .map(PackageResponse::getVersion)
         .collect(Collectors.toList());
     List<String> expectedVersions = SORTED_VERSIONS.subList(TAIL_INDEX, HEAD_INDEX + 1);
-    assertNotNull(packages);
-    assertEquals(expectedVersions.size(), packages.size());
+    assertNotNull(packageResponses);
+    assertEquals(expectedVersions.size(), packageResponses.size());
     assertIterableEquals(expectedVersions, observedVersions);
   }
 
   @Test
   void testOverwriting() {
-    Package randomPackage = PackageGenerator.randomPackage();
-    String groupId = randomPackage.getGroupId();
-    String artifactId = randomPackage.getArtifactId();
-    String version = randomPackage.getVersion();
-    Package overwrittenPackage = new Package(groupId, artifactId,
+    PackageResponse randomPackageResponse = PackageGenerator.randomPackage();
+    String groupId = randomPackageResponse.getGroupId();
+    String artifactId = randomPackageResponse.getArtifactId();
+    String version = randomPackageResponse.getVersion();
+    PackageResponse overwrittenPackageResponse = new PackageResponse(groupId, artifactId,
         version, PropertyGenerator.randomPath());
-    storage.add(randomPackage);
-    storage.add(overwrittenPackage);
-    List<Package> packages = storage.range(groupId, artifactId);
-    assertNotNull(packages);
-    assertEquals(1, packages.size());
-    assertEquals(overwrittenPackage, packages.get(0));
-    assertEquals(overwrittenPackage.getPath(), packages.get(0).getPath()); // overwritten path
+    storage.add(randomPackageResponse);
+    storage.add(overwrittenPackageResponse);
+    List<PackageResponse> packageResponses = storage.range(groupId, artifactId);
+    assertNotNull(packageResponses);
+    assertEquals(1, packageResponses.size());
+    assertEquals(overwrittenPackageResponse, packageResponses.get(0));
+    assertEquals(overwrittenPackageResponse.getPath(), packageResponses.get(0).getPath()); // overwritten path
   }
 }
