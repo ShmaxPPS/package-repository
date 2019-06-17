@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import ru.cg.webbpm.repository.api.PackageResponse;
+import ru.cg.webbpm.repository.model.Package;
 import ru.cg.webbpm.repository.model.nexus.NexusAsset;
 import ru.cg.webbpm.repository.model.nexus.NexusPackage;
 import ru.cg.webbpm.repository.model.nexus.NexusPackages;
@@ -33,7 +33,7 @@ public class NexusRepositoryService implements RepositoryService {
     RestTemplate restTemplate;
 
     @Override
-    public List<PackageResponse> packages() {
+    public List<Package> packages() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         UriComponentsBuilder builder = UriComponentsBuilder
@@ -59,7 +59,7 @@ public class NexusRepositoryService implements RepositoryService {
                             nexusPackage.getGroup(), nexusPackage.getName(), nexusPackage.getVersion());
                         return new RuntimeException(errorMessage);
                     });
-                return new PackageResponse(
+                return new Package(
                     nexusPackage.getGroup(),
                     nexusPackage.getName(),
                     nexusPackage.getVersion(),

@@ -13,7 +13,7 @@ import ru.cg.webbpm.repository.api.PackageResponse;
 import ru.cg.webbpm.repository.api.PackageRequest;
 import ru.cg.webbpm.repository.model.VersionRange;
 import ru.cg.webbpm.repository.service.RepositoryService;
-import ru.cg.webbpm.repository.storage.PackageStorage;
+import ru.cg.webbpm.repository.storage.PackageStorageImpl;
 
 /**
  * @author m.popov
@@ -26,7 +26,7 @@ public class RepositoryController {
   @Autowired
   private RepositoryService service;
   @Autowired
-  private PackageStorage storage;
+  private PackageStorageImpl storage;
   @Autowired
   private PackageDao dao;
 
@@ -38,19 +38,35 @@ public class RepositoryController {
   ) {
     LOGGER.info("Start getting packages");
     return requests.stream()
-        .map(request -> {
-          VersionRange versionRange = dao.getAvailableVersions(
-              studioVersion,
-              request.getGroupId(),
-              request.getArtifactId()
-          );
-          return storage.range(
-              request.getGroupId(),
-              request.getArtifactId(),
-              versionRange.getMinVersion(),
-              versionRange.getMaxVersion()
-          );
-        })
+        .map(request -> processPackageRequest(studioVersion, request))
+        .collect(Collectors.toList());
+  }
+
+  private List<PackageResponse> processPackageRequest(String studioVersion, PackageRequest request) {
+    VersionRange versionRange = dao.availableVersions(
+        studioVersion,
+        request.getGroupId(),
+        request.getArtifactId()
+    );
+    boolean fromInclusive =
+        versionRange.getFromVersion().toString().equals(request.getFromVersion()) &&
+        request.getFromInclusive();
+
+    boolean toInclusive =
+        versionRange.getToVersion().toString().equals(request.getToVersion()) &&
+        request.getToInclusive();
+
+    return storage.range(
+        request.getGroupId(), request.getArtifactId(),
+        versionRange.getFromVersion(), fromInclusive,
+        versionRange.getToVersion(), toInclusive
+    ).stream()
+        .map(pPackage -> new PackageResponse(
+            pPackage.getGroupId(),
+            pPackage.getArtifactId(),
+            pPackage.getVersion(),
+            pPackage.getPath()
+        ))
         .collect(Collectors.toList());
   }
 

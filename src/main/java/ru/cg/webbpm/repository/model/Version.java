@@ -17,6 +17,18 @@ public class Version implements Comparable<Version> {
       .thenComparing(Version::getMinor)
       .thenComparing(Version::getPatch);
 
+  public static final Version NEGATIVE_INFINITY = new Version(
+      Integer.MIN_VALUE,
+      Integer.MIN_VALUE,
+      Integer.MIN_VALUE
+  );
+
+  public static final Version POSITIVE_INFINITY = new Version(
+      Integer.MAX_VALUE,
+      Integer.MAX_VALUE,
+      Integer.MAX_VALUE
+  );
+
   private final int major;
   private final int minor;
   private final int patch;

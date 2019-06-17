@@ -1,23 +1,24 @@
 package ru.cg.webbpm.repository.model;
 
+import java.util.Objects;
+
 /**
  * @author m.popov
  */
 public class VersionRange {
-  private Version minVersion;
-  private Version maxVersion;
+  private Version fromVersion;
+  private Version toVersion;
 
-  public VersionRange(Version minVersion, Version maxVersion) {
-    this.minVersion = minVersion;
-    this.maxVersion = maxVersion;
+  public VersionRange(Version fromVersion, Version toVersion) {
+    this.fromVersion = Objects.requireNonNull(fromVersion);
+    this.toVersion = Objects.requireNonNull(toVersion);
   }
 
-  public Version getMinVersion() {
-    return minVersion;
+  public Version getFromVersion() {
+    return fromVersion;
   }
 
-  public Version getMaxVersion() {
-    return maxVersion;
+  public Version getToVersion() {
+    return toVersion;
   }
-
 }

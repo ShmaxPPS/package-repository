@@ -5,7 +5,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import ru.cg.webbpm.repository.service.RepositoryService;
-import ru.cg.webbpm.repository.storage.PackageStorage;
+import ru.cg.webbpm.repository.storage.PackageStorageImpl;
 
 /**
  * @author m.popov
@@ -17,7 +17,7 @@ public class PackageUpdateScheduler {
   private RepositoryService service;
 
   @Autowired
-  private PackageStorage storage;
+  private PackageStorageImpl storage;
 
   @Scheduled(cron = "* */5 * * * ?")
   public void run() {

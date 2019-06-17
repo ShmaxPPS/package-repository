@@ -1,21 +1,18 @@
 package ru.cg.webbpm.repository.api;
 
-import java.util.Objects;
-
 /**
  * @author m.popov
  */
 public class PackageRequest {
   private String groupId;
   private String artifactId;
+  private String fromVersion;
+  private boolean fromInclusive;
+  private String toVersion;
+  private boolean toInclusive;
 
   @SuppressWarnings("unused")
   public PackageRequest() {
-  }
-
-  public PackageRequest(String groupId, String artifactId) {
-    this.groupId = groupId;
-    this.artifactId = artifactId;
   }
 
   public String getGroupId() {
@@ -34,17 +31,35 @@ public class PackageRequest {
     this.artifactId = artifactId;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof PackageRequest)) return false;
-    PackageRequest that = (PackageRequest) o;
-    return Objects.equals(groupId, that.groupId) &&
-           Objects.equals(artifactId, that.artifactId);
+  public String getFromVersion() {
+    return fromVersion;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(groupId, artifactId);
+  public void setFromVersion(String fromVersion) {
+    this.fromVersion = fromVersion;
+  }
+
+  public boolean getFromInclusive() {
+    return fromInclusive;
+  }
+
+  public void setFromInclusive(boolean fromInclusive) {
+    this.fromInclusive = fromInclusive;
+  }
+
+  public String getToVersion() {
+    return toVersion;
+  }
+
+  public void setToVersion(String toVersion) {
+    this.toVersion = toVersion;
+  }
+
+  public boolean getToInclusive() {
+    return toInclusive;
+  }
+
+  public void setToInclusive(boolean toInclusive) {
+    this.toInclusive = toInclusive;
   }
 }

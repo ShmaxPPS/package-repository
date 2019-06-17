@@ -5,8 +5,8 @@ CREATE TABLE link_studio_packages (
   studio_version      VARCHAR(50)  NOT NULL,
   package_group_id    VARCHAR(50)  NOT NULL,
   package_artifact_id VARCHAR(50)  NOT NULL,
-  package_min_version VARCHAR(50)  NOT NULL,
-  package_max_version VARCHAR(50)  NOT NULL
+  package_from_version VARCHAR(50)  NOT NULL,
+  package_to_version VARCHAR(50)  NOT NULL
 );
 
 INSERT INTO link_studio_packages VALUES
