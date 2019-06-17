@@ -46,6 +46,7 @@ public class NexusRepositoryService implements RepositoryService {
                 new HttpEntity<>(headers),
                 NexusPackages.class
         );
+
         List<NexusPackage> packages = response.getBody() != null
             ? response.getBody().getItems()
             : Collections.emptyList();

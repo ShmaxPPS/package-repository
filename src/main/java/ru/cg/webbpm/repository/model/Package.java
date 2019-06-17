@@ -11,6 +11,10 @@ public class Package {
   private String version;
   private String path;
 
+  @SuppressWarnings("unused")
+  public Package() {
+  }
+
   public Package(String groupId, String artifactId, String version, String path) {
     this.groupId = Objects.requireNonNull(groupId);
     this.artifactId = Objects.requireNonNull(artifactId);

@@ -1,0 +1,156 @@
+{
+  "items": [
+    {
+      "id": "cGFja2FnZXMtcmVsZWFzZXMtbG9jYWw6MWM3ODdhMDNkYjgyMDllYjdiZTVhYzM5ZTcwMGY4MmI",
+      "repository": "packages-releases-local",
+      "format": "maven2",
+      "group": "ru.cg.webbpm.packages.base",
+      "name": "resources",
+      "version": "3.0.11",
+      "assets": [
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.jar",
+          "path": "ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.jar",
+          "id": "cGFja2FnZXMtcmVsZWFzZXMtbG9jYWw6MTNiMjllNDQ5ZjBlM2I4ZDI2YmVhZmY3NzlmOGZkYmU",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "1ceb5c58d9da0e88b9aceadefe42285dfaa53170",
+            "md5": "ac2525edc1d3c8e25f05a58797a4b815"
+          }
+        },
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.jar.md5",
+          "path": "ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.jar.md5",
+          "id": "cGFja2FnZXMtcmVsZWFzZXMtbG9jYWw6ODUxMzU2NTJhOTc4YmU5YWRmOTUzNjRiYjBmYjJjNTY",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "ab649018fa39765428453c0e3be07ee3499b1313",
+            "md5": "51412a50f95810b366f3d4179b5a2c5f"
+          }
+        },
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.jar.sha1",
+          "path": "ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.jar.sha1",
+          "id": "cGFja2FnZXMtcmVsZWFzZXMtbG9jYWw6MGFiODBhNzQzOTIxZTQyNmY0ODQzYzI4MTJhOWIxZDA",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "846f2304dcea900768bb6ce95609c0e9191a1040",
+            "md5": "64ac4982b0a626920f4e4bec09bb804e"
+          }
+        },
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.pom",
+          "path": "ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.pom",
+          "id": "cGFja2FnZXMtcmVsZWFzZXMtbG9jYWw6ZDQ4MTE3NTQxZGNiODllYzJkNTRkNDdjYWZmYmU1OWU",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "b68923e7813376955caba7a770c1f6e5e7acbe3a",
+            "md5": "2528b80fbd834ec74780396c94a7fba0"
+          }
+        },
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.pom.md5",
+          "path": "ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.pom.md5",
+          "id": "cGFja2FnZXMtcmVsZWFzZXMtbG9jYWw6MGFiODBhNzQzOTIxZTQyNjgxZWExNzg5MjhkNDk2OTg",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "b3b71716951c84611ca1918c70e93224e96bd152",
+            "md5": "696ffd8b5a58324186b389cbecf611dc"
+          }
+        },
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.pom.sha1",
+          "path": "ru/cg/webbpm/packages/base/resources/3.0.11/resources-3.0.11.pom.sha1",
+          "id": "cGFja2FnZXMtcmVsZWFzZXMtbG9jYWw6MTNiMjllNDQ5ZjBlM2I4ZDMyZjc2M2VmYWRjODgwNjQ",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "01d72602fd7d87d6027f91318449c0c18f0cdf21",
+            "md5": "25862df0bda5224b43a5ca29f6e3ccd1"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bGlicy1yZWxlYXNlcy1sb2NhbDpkZmJlZjA5ZWZlMTY0NGVhZWRjNmQxYzdhOGM0ZWFhZA",
+      "repository": "packages-releases-local",
+      "format": "maven2",
+      "group": "ru.cg.webbpm.modules.bpmn",
+      "name": "bpmn-beans",
+      "version": "3.1.1",
+      "assets": [
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.jar",
+          "path": "ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.jar",
+          "id": "bGlicy1yZWxlYXNlcy1sb2NhbDo4NTEzNTY1MmE5NzhiZTlhNTAwYTVkZTVhODgxNzU0Yw",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "a4b6a878d256b99742550728fd5fd85af2dc2537",
+            "md5": "a614673023e92a7d21fc9afe19d0f390"
+          }
+        },
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.jar.md5",
+          "path": "ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.jar.md5",
+          "id": "bGlicy1yZWxlYXNlcy1sb2NhbDoxM2IyOWU0NDlmMGUzYjhkOTkyOTY3NTliNTljNmU4Yw",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "8157b3c2ea70f535be8ffb47dd70f1f4202c6551",
+            "md5": "307ec49f0fa60eb0a23f867778a316db"
+          }
+        },
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.jar.sha1",
+          "path": "ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.jar.sha1",
+          "id": "bGlicy1yZWxlYXNlcy1sb2NhbDpkNDgxMTc1NDFkY2I4OWVjNmE3MWQ4YjQ4NzIyYjMzYg",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "3c3b10525478ba8ebc3d16409636308c5d6f5527",
+            "md5": "7850ed5c06a53c34bc5834fa9663fdb1"
+          }
+        },
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.pom",
+          "path": "ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.pom",
+          "id": "bGlicy1yZWxlYXNlcy1sb2NhbDowYWI4MGE3NDM5MjFlNDI2YzZkMTMzZWQ4ZjU1MGExZg",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "3e748337f89f35bd5bc9bab0e14dcbdb0ab482fe",
+            "md5": "db084281f2f639d97bba0cd0f4d87bee"
+          }
+        },
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.pom.md5",
+          "path": "ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.pom.md5",
+          "id": "bGlicy1yZWxlYXNlcy1sb2NhbDpkNDgxMTc1NDFkY2I4OWVjNDgxYTQ4OTcxN2Y4MDhlZA",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "05ddfe6b213b4f85c8cb2a1bcc30afaf7ca690f1",
+            "md5": "7ba8ac217d7de54137b48b5147098425"
+          }
+        },
+        {
+          "downloadUrl": "http://repo.cg.ru/repository/packages-releases-local/ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.pom.sha1",
+          "path": "ru/cg/webbpm/modules/bpmn/bpmn-beans/3.1.1/bpmn-beans-3.1.1.pom.sha1",
+          "id": "bGlicy1yZWxlYXNlcy1sb2NhbDo4NTEzNTY1MmE5NzhiZTlhODFhNzI0OWM3OTAzOTVjYQ",
+          "repository": "packages-releases-local",
+          "format": "maven2",
+          "checksum": {
+            "sha1": "e349ed72d90904bf8538539fd6925ff913ece634",
+            "md5": "168e0b4116b00d9d62f05df0d153d0f9"
+          }
+        }
+      ]
+    }
+  ]
+}
